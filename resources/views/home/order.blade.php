@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html>
    <head>
-
       <!-- Basic -->
       <meta charset="utf-8" />
       <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -24,82 +23,64 @@
       <style type="text/css">
         .center{
             margin: auto;
+            width: 70%;
+            padding: 30px;
             text-align: center;
-            width: 50%;
-            padding: 30px;  
+            
         }
         table,th,td{
-            border: 2px solid gray;
-
+            border: 1px solid black;
         }
         .th_deg{
+            padding: 10px;
+            background-color: skyblue;
+            font-weight:bold;
             font-size: 20px;
-            padding: 5px;
-            background: skyblue;
-            padding: 30px;
-        }
-        .img_deg{
-            height: 200px;
-            width: 200px;
-
-        }
-        .total_deg{
-            font-size: 20px;
-            padding: 40px;
         }
       </style>
    </head>
    <body>
-    
          <!-- header section strats -->
          @include('home.header')
          <!-- end header section -->
-    {{-- <div class="hero_area">   
-    </div> --}}
-    @if(session()->has('message'))
-                <div class="alert alert-success">
-                  <button type="button" class="close" data-dismiss="alert" aria-hidden="true">x</button>
-                  {{ session()->get('message') }}
-                </div>
-                @endif
+         <!-- slider section -->
       <div class="center">
-
-        <table >
+        <table>
             <tr>
-                <th class="th_deg">Product title</th>
-                <th class="th_deg">Product quantity</th>
+                <th class="th_deg">Product Title</th>
+                <th class="th_deg">quantity</th>
                 <th class="th_deg">Price</th>
+                <th class="th_deg">Payment Stutus</th>
+                <th class="th_deg">Delivery Status</th>
                 <th class="th_deg">Image</th>
-                <th class="th_deg">Action</th>
+                <th class="th_deg">Cancel Order</th>
+
             </tr>
-            <?php $totalprice=0;?>
-            @foreach($cart as $cart)
+            @foreach($order as $order)
+
             <tr>
-                <td>{{ $cart->product_title }}</td>
-                <td>{{ $cart->quantity }}</td>
-                <td>{{ $cart->price }}</td>
-                <td><img class="img_deg" src="product/{{ $cart->image }}" alt=""></td>
-                <td><a onclick="return confirm('Are you sure to remove this product?')" class="btn btn-danger" href="{{ url('/remove_cart',$cart->id) }}">Remove Product</a></td>
+                <td>{{$order->product_title }}</td>
+                <td>{{$order->quantity }}</td>
+                <td>{{$order->price}}</td>
+                <td>{{$order->payment_status}}</td>
+                <td>{{$order->delivery_status}}</td>
+                <td>
+                    <img style="height: 100px; width: 100px" src="product/{{ $order->image }}" alt="">
+                </td>
+                <td>
+                    @if($order->delivery_status=='processing')
+                    <a class="btn btn-danger" onclick="return confirm('Are you sure to cancel this order !')" href="{{ url('cancel_order',$order->id) }}">cancel</a>
+                    @else
+                    <p style="color: blue;">Not Allowed</p>
+                    @endif
+                </td>
+
             </tr>
-            <?php $totalprice=$totalprice+$cart->price ?>
             @endforeach
+
         </table>
-        <div>
-            <h1 class="total_deg">Total Price: {{ $totalprice }}</h1>
-        </div>
-        <div>
-            <h1 style="font-size:25px;padding-bottom:20px">Procceed to Order</h1>
-            <a href="{{ url('cash_order') }}" class="btn btn-danger">Cash On Delivery</a>
-
-        </div>
-
-
-
-
-      </div>
-      <!-- why section -->
-         {{-- @include('home.footer') --}}
-      <!-- footer end -->
+      
+     
       <!-- jQery -->
       <script src="homepage/js/jquery-3.4.1.min.js"></script>
       <!-- popper js -->

@@ -53,29 +53,20 @@
                <h6>Available quantity: {{$product->quantity }}</h6>
                <form action="{{ url('add_cart',$product->id) }}" method="POST">
                 @csrf
-                <div class="row">
                    <div class="col-lg-4">
                       <input type="number" name="quantity" value="1" min="1" style="width: 100px" >
                    </div>
                    <div class="col-lg-4">
-                      <input type="submit" value="Add to cart">
+                     <button class="col-lg-4"><input type="submit" value="Add to cart">
+                     </button>
                    </div>
                 </div>
-               
               </form>
             </div>
          </div>
       </div>  
-      
          @include('home.footer')
       <!-- footer end -->
-      <div class="cpy_">
-         <p class="mx-auto">© 2021 All Rights Reserved By <a href="https://html.design/">Free Html Templates</a><br>
-         
-            Distributed By <a href="https://themewagon.com/" target="_blank">ThemeWagon</a>
-         
-         </p>
-      </div>
       <!-- jQery -->
       <script src="homepage/js/jquery-3.4.1.min.js"></script>
       <!-- popper js -->
